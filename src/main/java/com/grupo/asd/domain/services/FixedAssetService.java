@@ -45,7 +45,7 @@ public class FixedAssetService {
     }
 
     public ResponseEntity<?> findByNameTypeActive(String name){
-        if(name.equals("")){
+        if(name.equals("") || fixedAssetRepository.findByIdTypeActive(fixedAssetRepository.findByNameTypeActive(name).getIdTypeActive()).isEmpty()){
             throw new RuntimeException();
         }else{
             return new ResponseEntity<>(fixedAssetRepository.findByIdTypeActive(fixedAssetRepository.findByNameTypeActive(name).getIdTypeActive()),HttpStatus.OK);
