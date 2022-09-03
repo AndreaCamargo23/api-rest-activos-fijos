@@ -29,7 +29,7 @@ public class FixedAssetService {
     }
 
     public ResponseEntity<?> findByDate(String date){
-        DateTimeFormatter formato= DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formato= DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaCompra = LocalDate.parse(date,formato);
         if(fixedAssetRepository.findByDate(fechaCompra).isEmpty()){
             throw new RuntimeException();

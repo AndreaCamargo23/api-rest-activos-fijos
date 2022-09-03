@@ -15,7 +15,7 @@ public class ExceptionController{
 
     @ExceptionHandler(DateTimeParseException.class)
     public ResponseEntity<?> handleDateTimeParseException(){
-        return new ResponseEntity<>(Map.of("Error","Entrada erronea, formato de fecha correcto: dd-mm-yyyy"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(Map.of("Error","Entrada erronea, formato de fecha correcto: yyyy-mm-dd"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RuntimeException.class)

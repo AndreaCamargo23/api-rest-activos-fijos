@@ -42,7 +42,7 @@ public class FixedAssetController {
             @ApiResponse(code = 200,message = "OK"),
             @ApiResponse(code=404,message = "Búsqueda sin resultados")
     })
-    public ResponseEntity<?> findByDate(@ApiParam(value = "Fecha de compra del activo", required = true, example = "26-08-2022")
+    public ResponseEntity<?> findByDate(@ApiParam(value = "Fecha de compra del activo", required = true, example = "2022-09-01")
                                             @PathVariable("fecha") String date){
         return fixedAssetService.findByDate(date);
     }
