@@ -1,4 +1,4 @@
-package com.grupo.asd.config;
+package com.grupo.asd.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket api(){
         //Enviados el tipo de documentacion a utilizar
         return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.basePackage("com.grupo.asd.controller"))
+                .select().apis(RequestHandlerSelectors.basePackage("com.grupo.asd.web.controller"))
                 .build();
     }
 }

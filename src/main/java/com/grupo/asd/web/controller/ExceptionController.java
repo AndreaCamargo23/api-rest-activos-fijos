@@ -1,4 +1,4 @@
-package com.grupo.asd.controller;
+package com.grupo.asd.web.controller;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

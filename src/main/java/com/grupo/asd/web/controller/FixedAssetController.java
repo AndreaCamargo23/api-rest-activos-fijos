@@ -1,4 +1,4 @@
-package com.grupo.asd.controller;
+package com.grupo.asd.web.controller;
 
 import com.grupo.asd.domain.dto.FixedAsset;
 import com.grupo.asd.domain.services.FixedAssetService;
