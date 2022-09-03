@@ -1,0 +1,155 @@
+CREATE TABLE tipo_responsable(
+	id_tipo serial not null,
+	nombre_tipo varchar(45) not null,
+	PRIMARY KEY(id_tipo)
+);
+
+CREATE TABLE ciudad(
+	id_ciudad serial not null,
+	ciudad varchar(85) not null,
+	PRIMARY KEY(id_ciudad)
+);
+
+CREATE TABLE responsable(
+	identificacion varchar(30) not null,
+	nombre varchar(65) not null,
+	id_tipo_responsable int,
+	id_ciudad int,
+	PRIMARY KEY(identificacion)
+);
+
+ALTER TABLE responsable
+	ADD CONSTRAINT fk_tipo_responsable FOREIGN KEY(id_tipo_responsable) REFERENCES tipo_responsable(id_tipo)
+				MATCH FULL ON UPDATE CASCADE ON DELETE SET NULL,
+	ADD CONSTRAINT fk_ciudad FOREIGN KEY(id_ciudad) REFERENCES ciudad(id_ciudad)
+				MATCH FULL ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+CREATE TABLE tipo_activo(
+	id_tipo_activo serial not null,
+	tipo_activo varchar(60) not null,
+	PRIMARY KEY(id_tipo_activo)
+);
+
+
+CREATE TABLE activo_fijo(
+	serial_activo varchar(50) not null,
+	numero_inventario int not null,
+	nombre varchar(100) not null,
+	descripcion varchar(150),
+	id_tipo_activo int,
+	peso real,
+	alto real,
+	ancho real,
+	valor_compra decimal,
+	fecha_compra date,
+	id_responsable varchar(30),
+	PRIMARY KEY(serial_activo)
+);
+
+ALTER TABLE activo_fijo
+	ADD CONSTRAINT fk_responsable FOREIGN KEY(id_responsable) REFERENCES responsable(identificacion)
+				MATCH FULL ON UPDATE CASCADE ON DELETE SET NULL,
+	ADD CONSTRAINT fk_tipo_activo FOREIGN KEY(id_tipo_activo) REFERENCES tipo_activo(id_tipo_activo)
+				MATCH FULL ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+
+
+
+-- tipo responsable
+SELECT setval('public.tipo_responsable_id_tipo_seq',2,true);
+INSERT INTO tipo_responsable VALUES (1,'area');
+INSERT INTO tipo_responsable VALUES (2,'persona');
+
+-- Tipo de activo 
+
+INSERT INTO tipo_activo VALUES (1,'Bienes inmuebles');
+SELECT setval('public.tipo_activo_id_tipo_activo_seq',1,true);
+INSERT INTO tipo_activo (tipo_activo) VALUES ('Maquinaria');
+INSERT INTO tipo_activo (tipo_activo) VALUES ('Material de oficina');
+INSERT INTO tipo_activo (tipo_activo) VALUES ('Equipos');
+
+
+-- Ciudad
+
+INSERT INTO ciudad VALUES (1,'Leticia');
+SELECT setval('public.ciudad_id_ciudad_seq',1,true);
+INSERT INTO ciudad (ciudad) VALUES ('Medellín');
+INSERT INTO ciudad (ciudad) VALUES ('Turbo');
+INSERT INTO ciudad (ciudad) VALUES ('Caucasia');
+INSERT INTO ciudad (ciudad) VALUES ('Barranquilla');
+INSERT INTO ciudad (ciudad) VALUES ('Bogotá');
+INSERT INTO ciudad (ciudad) VALUES ('Girardot');
+INSERT INTO ciudad (ciudad) VALUES ('Cartagena');
+INSERT INTO ciudad (ciudad) VALUES ('Tunja');
+INSERT INTO ciudad (ciudad) VALUES ('Duitama');
+INSERT INTO ciudad (ciudad) VALUES ('Yopal');
+INSERT INTO ciudad (ciudad) VALUES ('Popayan');
+INSERT INTO ciudad (ciudad) VALUES ('Manizales');
+INSERT INTO ciudad (ciudad) VALUES ('Florencia');
+INSERT INTO ciudad (ciudad) VALUES ('Valledupar');
+INSERT INTO ciudad (ciudad) VALUES ('Montería');
+INSERT INTO ciudad (ciudad) VALUES ('Neiva');
+INSERT INTO ciudad (ciudad) VALUES ('Riohacha');
+INSERT INTO ciudad (ciudad) VALUES ('Maicao');
+INSERT INTO ciudad (ciudad) VALUES ('Santa Marta');
+INSERT INTO ciudad (ciudad) VALUES ('Ciénaga');
+INSERT INTO ciudad (ciudad) VALUES ('Villavicencio');
+INSERT INTO ciudad (ciudad) VALUES ('Pasto');
+INSERT INTO ciudad (ciudad) VALUES ('Cúcuta');
+INSERT INTO ciudad (ciudad) VALUES ('Armenia');
+INSERT INTO ciudad (ciudad) VALUES ('Pereira');
+INSERT INTO ciudad (ciudad) VALUES ('Bucaramanga');
+INSERT INTO ciudad (ciudad) VALUES ('Barrancabermeja');
+INSERT INTO ciudad (ciudad) VALUES ('Ibagué');
+INSERT INTO ciudad (ciudad) VALUES ('Cali');
+INSERT INTO ciudad (ciudad) VALUES ('Buenaventura');
+INSERT INTO ciudad (ciudad) VALUES ('Cartago');
+
+
+-- Responsable
+
+INSERT INTO responsable VALUES ('1001278908','Andres Camacho',2,3);
+INSERT INTO responsable VALUES ('15592','Maria Perez',2,4);
+INSERT INTO responsable VALUES ('256981','Juan Lopez',2,5);
+INSERT INTO responsable VALUES ('1226391','Harold Muñoz',2,1);
+INSERT INTO responsable VALUES ('1236351','Felix Carreño',2,5);
+INSERT INTO responsable VALUES ('6688962','Joshua Gonzalez',2,6);
+INSERT INTO responsable VALUES ('85256','Jaime Tautiva',2,3);
+INSERT INTO responsable VALUES ('698522','Maicol Pantano',2,4);
+INSERT INTO responsable VALUES ('79582641','Fernando Parra',2,3);
+INSERT INTO responsable VALUES ('996162','Angelica Gomez',2,8);
+
+INSERT INTO responsable VALUES ('201','Comunicaciones',1,1);
+INSERT INTO responsable VALUES ('202','Planificacion',1,2);
+INSERT INTO responsable VALUES ('203','Desarrollo',1,3);
+INSERT INTO responsable VALUES ('204','Infraestructuras',1,4);
+INSERT INTO responsable VALUES ('205','Analisis de datos',1,5);
+INSERT INTO responsable VALUES ('206','Analistas de sistemas',1,6);
+INSERT INTO responsable VALUES ('207','Desarrollo web',1,7);
+INSERT INTO responsable VALUES ('208','Logistica',1,8);
+INSERT INTO responsable VALUES ('209','Documental',1,9);
+INSERT INTO responsable VALUES ('210','Operaciones',1,10);
+
+
+-- Activos fijos 
+
+INSERT INTO activo_fijo VALUES ('15982CD',100,'Escritorio','En L',3,40,78,1.52,650000,'2020-02-14','1001278908');
+INSERT INTO activo_fijo VALUES ('1556DG',101,'Silla','Silla comoda',3,42,20,1.82,720000,'2022-02-15','201');
+INSERT INTO activo_fijo VALUES ('1445DGT',110,'Escritorio Axis','Escritorio en L, con 5 cajones',3,40.6,76.5,151.5,299630,'2022-09-01','202');
+INSERT INTO activo_fijo VALUES ('2445DGT',111,'Escritorio Bari','Nueva coleccion, escritorio rigido',3,35,84.4,110,219900,'2022-09-01','201');
+INSERT INTO activo_fijo VALUES ('3444TY',112,'Escritorio Picasso','biblioteca y escritorio personal',3,35,95,100,159900,'2022-09-01','1226391');
+
+
+INSERT INTO activo_fijo VALUES ('154561CDF',113,'Silla Milano','Ergonomica',3,40,57,106,399900,'2022-08-30','203');
+INSERT INTO activo_fijo VALUES ('14151GFD',114,'Silla 2005A','Comoda gestion',3,40,57,106,389900,'2022-08-30','204');
+INSERT INTO activo_fijo VALUES ('58522GTF',115,'Silla metalica oficina','Silla oficina comodo estructura metalica',3,40,57,103,559900,'2022-08-29','996162');
+
+
+INSERT INTO activo_fijo VALUES ('525851DD',114,'TV UHD','Televisor 50 pulgadas',4,40,54,35,2049900,'2022-08-05','204');
+INSERT INTO activo_fijo VALUES ('5581FRR',115,'Tv AU700','Televisor 55 pulgadas',4,35,30,40,2199900,'2022-08-05','1236351');
+INSERT INTO activo_fijo VALUES ('8557DRF',116,'Tv Smart Led','Televisor 43 pulg',4,35,12,40,1538900,'2022-08-07','85256');
+INSERT INTO activo_fijo VALUES ('DED154',117,'Paletizadora','Ssistema robotizado',2,120,150,180,25000000,'2022-04-04','210');
+INSERT INTO activo_fijo VALUES ('417TDD',118,'Clasificadora scanner','Clasificacion de granos',2,40,20,10,2501000,'2022-08-05','210');
+
