@@ -31,7 +31,7 @@ public class FixedAssetController {
             @ApiResponse(code = 200,message = "OK"),
             @ApiResponse(code=404,message = "Entrada erronea o busqueda sin resultados")
     })
-    public ResponseEntity<?> getFixedAsset(@ApiParam(value = "Serial del activo fijo", required = true, example = "15982CD")
+    public ResponseEntity<?> getFixedAsset(@ApiParam(value = "Serial del activo fijo", required = true, example = "1556DG")
                                                @PathVariable("serial") String fixedAssetId){
             return fixedAssetService.getFixedAsset(fixedAssetId);
     }
